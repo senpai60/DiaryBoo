@@ -23,7 +23,7 @@ function DiaryEditor() {
   return (
     // 1. MAIN BACKGROUND: Same as DiaryPreview (Cork board)
     <section className="relative w-full min-h-screen overflow-hidden 
-                       bg-[#c7a983] bg-[url('https://www.transparenttextures.com/patterns/cork-wallet.png')] 
+                       bg-transparent
                        p-10">
       
       {/* 2. TITLE: Styled with 'Kalam' font */}
