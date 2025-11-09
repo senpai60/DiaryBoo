@@ -6,11 +6,15 @@ import DiaryPreview from "../components/layout/DiaryPreview";
 export default function HomePage() {
   const [active, setActive] = useState("editor");
 
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [images, setImages] = useState([]);
+  const [stickers, setStickers] = useState([]);
+  const [location, setLocation] = useState("");
+
   return (
     <section className="w-full h-full p-6 uif">
       <div className="flex justify-between items-center">
-        <h1 className="font-bold text-2xl text-white">Create Your Memory :)</h1>
-
         <div className="flex gap-3">
           <Button
             active={active === "editor"}
@@ -36,7 +40,28 @@ export default function HomePage() {
         </div>
       </div>
       <div className="main-sections w-full">
-            {active==="editor" ? (<DiaryEditor/>) : (<DiaryPreview/>)}
+        {active === "editor" ? (
+          <DiaryEditor
+            title={title}
+            setTitle={setTitle}
+            content={content}
+            setContent={setContent}
+            images={images}
+            setImages={setImages}
+            stickers={stickers}
+            setStickers={setStickers}
+            location={location}
+            setLocation={setLocation}
+          />
+        ) : (
+          <DiaryPreview 
+            title={title}
+            content={content}
+            images={images}
+            stickers={stickers}
+            location={location}
+          />
+        )}
       </div>
     </section>
   );

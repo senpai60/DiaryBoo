@@ -1,18 +1,25 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import { authAPi } from "../api/authApi";
+import { diaryApi } from "../api/diaryApi";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [diaryEntries, setDiaryEntries] = useState([])
 
   useEffect(() => {
+    
     const getUser = async () => {
       const fetchedUser = await verifyUser();
-      if (fetchedUser) setUser(fetchedUser);
+      if (fetchedUser) {
+        setUser(fetchedUser)
+        await fetchLatestDiaryEntry()
+      };
       setLoading(false);
     };
+    
     getUser();
   }, []);
 
@@ -52,12 +59,22 @@ export const AuthProvider = ({ children }) => {
       console.error(err);
     }
   };
+  const fetchLatestDiaryEntry = async() =>{
+    try {
+      const response = await diaryApi.get('/entries')
+      setDiaryEntries(response.data?.data)
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   return (
     <AuthContext.Provider
       value={{
         user,
         loading,
+        diaryEntries,
+        fetchLatestDiaryEntry,
         loginUser,
         signupUser,
         logoutUser,

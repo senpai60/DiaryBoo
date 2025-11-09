@@ -3,13 +3,7 @@ import React from "react";
 const dummyEntry = {
   // Main "Asahi" image se content le raha hoon
   title: "About Me",
-  bio: [
-    "ASAHI",
-    "20/08/2001",
-    "Age: 21th",
-    "Weight: 56 kg",
-    "Height: 173 cm",
-  ],
+  bio: ["ASAHI", "20/08/2001", "Age: 21th", "Weight: 56 kg", "Height: 173 cm"],
   content: [
     "His MBTI personality type is INFP.",
     "He taught himself how to self-compose when he was in middle school.",
@@ -25,21 +19,34 @@ const dummyEntry = {
   paperclipImage: "images/realistic-paperclip.png",
 };
 
-export default function DiaryPreview() {
-  const { title, bio, content, images, paperclipImage } = dummyEntry;
+export default function DiaryPreview({
+  title,
+  content,
+  images,
+  stickers,
+  location,
+}) {
+  const { bio, paperclipImage } = dummyEntry;
+  // const { title, bio, content, images, paperclipImage } = dummyEntry;
 
-  {/* 1. FONT: 'Kalam' (handwritten) aur 'Special Elite' (typewriter) perfect hain */}
-  {/* (Import: @import url('https://fonts.googleapis.com/css2?family=Kalam&family=Special+Elite&display=swap');) */}
+  {
+    /* 1. FONT: 'Kalam' (handwritten) aur 'Special Elite' (typewriter) perfect hain */
+  }
+  {
+    /* (Import: @import url('https://fonts.googleapis.com/css2?family=Kalam&family=Special+Elite&display=swap');) */
+  }
+  console.log("Preview Title:", title);
+  console.log("Preview Content:", content);
 
   return (
     // 2. BACKGROUND: Gradient ki jagah, ek real texture (jaise cork board)
-    <section className="relative w-full min-h-screen overflow-hidden 
+    <section
+      className="relative w-full min-h-screen overflow-hidden 
                    bg-[#c7a983] bg-[url('https://www.transparenttextures.com/patterns/dark-denim.png')] 
-                   p-10">
-      
+                   p-10"
+    >
       {/* 📔 Main container ko do hisso mein baant diya (like the image) */}
       <div className="relative mx-auto max-w-5xl h-[800px]">
-        
         {/* --- LEFT SIDE (Bio & Photos) --- */}
 
         {/* 3. POLAROID 1 (Photo + Paperclip) */}
@@ -56,14 +63,21 @@ export default function DiaryPreview() {
             alt="user photo 1"
           />
         </div>
-        
+
         {/* 4. TORN PAPER NOTE (Bio ke liye) */}
-        <div className="absolute left-10 top-[350px] w-64 h-48 bg-white/90 p-6 shadow-lg rotate-[-2deg] 
+        <div
+          className="absolute left-10 top-[350px] w-64 h-48 bg-white/90 p-6 shadow-lg rotate-[-2deg] 
                         font-['Special_Elite'] text-stone-800
                         {/* Yeh assets 'torn paper' look denge */}
-                        bg-[url('/assets/images/torn-paper-note.png')] bg-cover">
+                        bg-[url('/assets/images/torn-paper-note.png')] bg-cover"
+        >
           {bio.map((line, i) => (
-            <p key={i} className={`text-lg ${i === 0 ? 'font-bold text-2xl mb-2' : 'text-md'}`}>
+            <p
+              key={i}
+              className={`text-lg ${
+                i === 0 ? "font-bold text-2xl mb-2" : "text-md"
+              }`}
+            >
               {line}
             </p>
           ))}
@@ -84,28 +98,24 @@ export default function DiaryPreview() {
         </div>
 
         {/* --- RIGHT SIDE (About Me Content) --- */}
-        
+
         {/* 6. CRUMPLED PAPER (Main content ke liye) */}
-        <div className="absolute top-10 right-10 w-[60%] h-[720px] 
+        <div
+          className="absolute top-10 right-10 w-[60%] h-[720px] 
                         bg-white bg-[url('https://www.transparenttextures.com/patterns/paper-1.png')] 
-                        p-12 shadow-2xl rounded-md font-['Kalam'] text-gray-800">
-          
+                        p-12 shadow-2xl rounded-md font-['Kalam'] text-gray-800"
+        >
           <h1 className="text-5xl text-stone-700 font-bold tracking-tight mb-8">
             {title}
           </h1>
-          
+
           <ul className="list-disc pl-5 space-y-4">
-            {content.map((line, i) => (
-              <li key={i} className="text-xl leading-relaxed">
-                {line}
-              </li>
-            ))}
+            <li style={{fontFamily:"Special Elite"}} className="text-xl leading-relaxed">{content}</li>
           </ul>
 
           {/* 7. Washi Tape (Yeh bhi CSS ki jagah image ho sakti hai) */}
           <div className="absolute top-10 right-10 w-24 h-5 bg-yellow-300/60 rotate-[20deg] border border-yellow-400/50 shadow-sm"></div>
         </div>
-        
       </div>
     </section>
   );

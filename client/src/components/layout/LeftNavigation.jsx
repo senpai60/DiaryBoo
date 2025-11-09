@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
 function LeftNavigation() {
-  const { logoutUser, user } = useContext(AuthContext);
+  const { logoutUser, user, diaryEntries } = useContext(AuthContext);
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -19,16 +19,31 @@ function LeftNavigation() {
       <div className="flex-1 overflow-y-auto p-5 default-scroller">
         <h1 className="text-xl font-bold text-indigo-400 mb-4">Chats</h1>
 
-        {/* Chat items example */}
         <ul className="space-y-3 text-sm">
-          {Array.from({ length: 20 }).map((_, i) => (
-            <li
-              key={i}
-              className="p-2 rounded hover:bg-gray-800 cursor-pointer transition"
-            >
-              💬 Chat {i + 1}
-            </li>
-          ))}
+          {diaryEntries.length > 0 ? (
+            diaryEntries.map((entry, i) => (
+              <li
+                key={i}
+                className="p-2 rounded hover:bg-gray-800 cursor-pointer transition flex flex-col"
+              >
+                <span className="font-semibold">
+                  {entry.title.trim().length > 50
+                    ? entry.title.trim().slice(0, 50) + "..."
+                    : entry.title.trim()}
+                </span>
+                {/* CreatedAt formatted date below title */}
+                <span className="text-xs text-gray-400 mt-1">
+                  {new Date(entry.createdAt).toLocaleDateString("en-IN", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </span>
+              </li>
+            ))
+          ) : (
+            <p>create your first entry :)</p>
+          )}
         </ul>
       </div>
 
@@ -47,7 +62,8 @@ function LeftNavigation() {
               onClick={(e) => handleLogout(e)}
               className="hover:text-indigo-400"
             >
-              ℹ️ Logout</Link>
+              ℹ️ Logout
+            </Link>
           )}
         </nav>
       </div>

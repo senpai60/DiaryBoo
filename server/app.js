@@ -26,7 +26,10 @@ app.get('/', (req, res) => {
 
 // routes
 import usersRouter from './routes/users.js';
+import diaryRouter from './routes/diary.js'
+
 app.use('/users', usersRouter);
+app.use('/diary',diaryRouter)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
