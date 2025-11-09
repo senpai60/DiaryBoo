@@ -47,6 +47,7 @@ export const AuthProvider = ({ children }) => {
   const logoutUser = async () => {
     try {
       setUser(null);
+      await authAPi.post('/logout',{})
     } catch (err) {
       console.error(err);
     }
